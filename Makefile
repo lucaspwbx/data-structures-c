@@ -1,5 +1,7 @@
-main: calculator.o words.o main.c
-	gcc main.c calculator.o words.o -o main
+OBJECTS := calculator.o words.o
+
+main: $(OBJECTS) main.c
+	gcc main.c $(OBJECTS) -o main
 
 calculator.o: calculator.c calculator.h
 	gcc -o calculator.o -c calculator.c
