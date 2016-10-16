@@ -11,11 +11,8 @@ MAIN := $(SRCDIR)/main.c
 $(BINDIR)/main: $(OBJECTS) $(MAIN)
 	gcc $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
 
-$(OBJDIR)/calculator.o: $(SRCDIR)/calculator.c $(SRCDIR)/calculator.h
-	gcc -o $(OBJDIR)/calculator.o -c $(SRCDIR)/calculator.c
-
-$(OBJDIR)/words.o: $(SRCDIR)/words.c $(SRCDIR)/words.h
-	gcc -o $(OBJDIR)/words.o -c $(SRCDIR)/words.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	gcc -o $@ -c $<
 
 .PHONY: clean
 clean:
