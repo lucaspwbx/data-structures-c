@@ -10,6 +10,5 @@ words.o: words.c words.h
 	gcc -o words.o -c words.c
 
 clean:
-	rm calculator.o
-	rm words.o
+	rm $(OBJECTS)
 	rm main
