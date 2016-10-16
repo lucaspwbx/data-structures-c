@@ -1,13 +1,13 @@
-#SOURCES := $(wildcard *.c)
-#OBJECTS := calculator.o words.o
-#MAIN := main.o
-#OBJECTS := $(filter-out $(MAIN),$(patsubst %.c,%.o,$(wildcard *.c)))
 CC := gcc
 OBJDIR = temp
 SRCDIR = src
 BINDIR = bin
 TESTDIR = tests
-OBJECTS := $(OBJDIR)/calculator.o $(OBJDIR)/words.o
+
+SOURCES := $(wildcard $(SRCDIR)/*.c)
+FILTER_OUT := $(OBJDIR)/main.o
+OBJECTS := $(filter-out $(FILTER_OUT),$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES)))
+
 MAIN := $(SRCDIR)/main.c
 
 # TEST STUFF #
@@ -27,8 +27,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 .PHONY: tests
 tests:
-	@echo $(ROOT_DIR);
-	$(CC) $(TESTDIR)/calculator_test.c $(OBJECTS) -o $(BINDIR)/calculator_test $(INCLUDE_CMOCKA) -I/Users/lucasweiblen/estudos/make/ch2/$(SRCDIR)
+	$(CC) $(TESTDIR)/calculator_test.c $(OBJECTS) -o $(BINDIR)/calculator_test $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
 	$(BINDIR)/./calculator_test
 
 .PHONY: clean
@@ -36,3 +35,8 @@ clean:
 	rm $(OBJECTS)
 	rm $(BINDIR)/main
 	rm $(BINDIR)/calculator_test
+
+.PHONY: foo
+foo:
+	@echo $(SOURCES);
+	@echo $(OBJECTS2);
