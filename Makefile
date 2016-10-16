@@ -16,8 +16,7 @@ CMOCKA_PATH := /usr/local/lib
 INCLUDE_CUSTOM_LIBS_HEADERS = -I$(ROOT_DIR)/$(SRCDIR)
 INCLUDE_CMOCKA_HEADER = -lm -I /usr/local/include
 INCLUDE_CMOCKA := $(INCLUDE_CMOCKA_HEADER) -l cmocka -L $(CMOCKA_PATH)
-TESTS := $(wildcard $(TESTDIR)/*.c)
-TESTS2 := $(basename $(notdir $(TESTS)))
+TESTS := $(basename $(notdir $(wildcard $(TESTDIR)/*.c)))
 ######################################################################
 
 $(BINDIR)/main: $(OBJECTS) $(MAIN)
@@ -34,7 +33,7 @@ tests:
 
 .PHONY: testall
 testall:
-	for file in $(TESTS2); do \
+	for file in $(TESTS); do \
 	  $(CC) $(TESTDIR)/$$file.c $(OBJECTS) -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
 	  $(BINDIR)/./$$file; \
 	  done
