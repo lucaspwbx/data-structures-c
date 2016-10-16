@@ -1,19 +1,23 @@
 #SOURCES := $(wildcard *.c)
 #OBJECTS := calculator.o words.o
-MAIN := main.o
-OBJECTS := $(filter-out $(MAIN),$(patsubst %.c,%.o,$(wildcard *.c)))
+OBJDIR = temp
+SRCDIR = src
+BINDIR = bin
+#MAIN := main.o
+#OBJECTS := $(filter-out $(MAIN),$(patsubst %.c,%.o,$(wildcard *.c)))
+OBJECTS := $(OBJDIR)/calculator.o $(OBJDIR)/words.o
+MAIN := $(SRCDIR)/main.c
 
-main: $(OBJECTS) main.c
-	@echo TESTANDO: $(OBJECTS);
-	gcc main.c $(OBJECTS) -o main
+$(BINDIR)/main: $(OBJECTS) $(MAIN)
+	gcc $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
 
-calculator.o: calculator.c calculator.h
-	gcc -o calculator.o -c calculator.c
+$(OBJDIR)/calculator.o: $(SRCDIR)/calculator.c $(SRCDIR)/calculator.h
+	gcc -o $(OBJDIR)/calculator.o -c $(SRCDIR)/calculator.c
 
-words.o: words.c words.h
-	gcc -o words.o -c words.c
+$(OBJDIR)/words.o: $(SRCDIR)/words.c $(SRCDIR)/words.h
+	gcc -o $(OBJDIR)/words.o -c $(SRCDIR)/words.c
 
 .PHONY: clean
 clean:
 	rm $(OBJECTS)
-	rm main
+	rm $(BINDIR)/main
