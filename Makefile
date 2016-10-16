@@ -1,18 +1,31 @@
 #SOURCES := $(wildcard *.c)
 #OBJECTS := calculator.o words.o
+#MAIN := main.o
+#OBJECTS := $(filter-out $(MAIN),$(patsubst %.c,%.o,$(wildcard *.c)))
+CC := gcc
 OBJDIR = temp
 SRCDIR = src
 BINDIR = bin
-#MAIN := main.o
-#OBJECTS := $(filter-out $(MAIN),$(patsubst %.c,%.o,$(wildcard *.c)))
+TESTDIR = tests
 OBJECTS := $(OBJDIR)/calculator.o $(OBJDIR)/words.o
 MAIN := $(SRCDIR)/main.c
 
+# TEST STUFF #
+CMOCKA_PATH := /usr/local/lib
+INCLUDE_CMOCKA_HEADER = -lm -I /usr/local/include
+INCLUDE_CMOCKA := $(INCLUDE_CMOCKA_HEADER) -l cmocka -L $(CMOCKA_PATH)
+######################################################################
+
 $(BINDIR)/main: $(OBJECTS) $(MAIN)
-	gcc $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
+	$(CC) $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
+	$(BINDIR)/./main
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	gcc -o $@ -c $<
+	$(CC) -o $@ -c $<
+
+.PHONY: tests
+tests:
+	$(CC) $(TESTDIR)/calculator_test.c $(OBJECTS) -o $(BINDIR)/calculator_test $(INCLUDE_CMOCKA) -I/Users/lucasweiblen/estudos/make/ch2/$(SRCDIR)
 
 .PHONY: clean
 clean:
