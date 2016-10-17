@@ -21,18 +21,12 @@ TESTS := $(basename $(notdir $(wildcard $(TESTDIR)/*.c)))
 
 $(BINDIR)/main: $(OBJECTS) $(MAIN)
 	$(CC) $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
-	$(BINDIR)/./main
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -o $@ -c $<
 
-.PHONY: tests
-tests:
-	$(CC) $(TESTDIR)/calculator_test.c $(OBJECTS) -o $(BINDIR)/calculator_test $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
-	$(BINDIR)/./calculator_test
-
-.PHONY: testall
-testall:
+.PHONY: test
+test:
 	for file in $(TESTS); do \
 	  $(CC) $(TESTDIR)/$$file.c $(OBJECTS) -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
 	  $(BINDIR)/./$$file; \
@@ -42,10 +36,3 @@ testall:
 clean:
 	rm $(OBJECTS)
 	rm $(BINDIR)/main
-	rm $(BINDIR)/calculator_test
-	rm $(BINDIR)/calculator_testdois
-
-.PHONY: foo
-foo:
-	@echo $(SOURCES);
-	@echo $(OBJECTS2);
