@@ -25,8 +25,7 @@ $(BINDIR)/main: $(OBJECTS) $(MAIN)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -o $@ -c $<
 
-.PHONY: test
-test:
+test: $(OBJECTS)
 	for file in $(TESTS); do \
 	  $(CC) $(TESTDIR)/$$file.c $(OBJECTS) -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
 	  $(BINDIR)/./$$file; \
