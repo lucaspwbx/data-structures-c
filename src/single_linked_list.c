@@ -62,3 +62,16 @@ struct node *insert_before(int search_data, int data, struct node *list) {
   }
   return list;
 }
+
+struct node *delete_node(int search_data, struct node *list) {
+  struct node *ptr;
+  ptr = list;
+  while (ptr != NULL) {
+    if (ptr->next != NULL && ptr->next->data == search_data) {
+      ptr->next = ptr->next->next;
+      break;
+    }
+    ptr = ptr->next;
+  }
+  return list;
+}

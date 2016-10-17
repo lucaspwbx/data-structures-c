@@ -63,6 +63,19 @@ static void insert_before_test(void **state) {
   assert_int_equal(list->next->next->data, 10);
 }
 
+static void delete_node_test(void **state) {
+  (void) state;
+
+  struct node *list;
+  list = (struct node *)malloc(sizeof(struct node));
+  list = create_list(5, list);
+  list = insert_end(10, list);
+  list = insert_before(10, 7, list);
+  list = delete_node(7, list);
+  assert_int_equal(list->data, 5);
+  assert_int_equal(list->next->data, 10);
+}
+
 int main(void) {
   const struct CMUnitTest tests[] = {
     cmocka_unit_test(create_list_test),
@@ -70,6 +83,7 @@ int main(void) {
     cmocka_unit_test(insert_begin_test),
     cmocka_unit_test(insert_after_test),
     cmocka_unit_test(insert_before_test),
+    cmocka_unit_test(delete_node_test),
   };
   return cmocka_run_group_tests(tests, NULL, NULL);
 }
