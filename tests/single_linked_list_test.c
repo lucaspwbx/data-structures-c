@@ -24,13 +24,38 @@ static void insert_end_test(void **state) {
   list = insert_end(10, list);
   assert_int_equal(list->data, 5);
   assert_int_equal(list->next->data, 10);
+}
 
+static void insert_begin_test(void **state) {
+  (void) state;
+
+  struct node *list;
+  list = (struct node *)malloc(sizeof(struct node));
+  list = create_list(5, list);
+  list = insert_begin(10, list);
+  assert_int_equal(list->data, 10);
+  assert_int_equal(list->next->data, 5);
+}
+
+static void insert_after_test(void **state) {
+  (void) state;
+
+  struct node *list;
+  list = (struct node *)malloc(sizeof(struct node));
+  list = create_list(5, list);
+  list = insert_end(10, list);
+  list = insert_after(5, 7, list);
+  assert_int_equal(list->data, 5);
+  assert_int_equal(list->next->data, 7);
+  assert_int_equal(list->next->next->data, 10);
 }
 
 int main(void) {
   const struct CMUnitTest tests[] = {
     cmocka_unit_test(create_list_test),
     cmocka_unit_test(insert_end_test),
+    cmocka_unit_test(insert_begin_test),
+    cmocka_unit_test(insert_after_test),
   };
   return cmocka_run_group_tests(tests, NULL, NULL);
 }
