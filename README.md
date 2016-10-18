@@ -4,7 +4,7 @@
 - [ ] Improve makefile
 - [ ] Add circular linked list
 - [ ] Add double linked list
-- [ ] Add stack using single linked list
+- [X] Add stack using single linked list (missing edge cases)
 - [ ] Add stack using array
 - [ ] Add queue using single linked list
 - [ ] Add queue using array
