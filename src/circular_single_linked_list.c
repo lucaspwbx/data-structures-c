@@ -13,11 +13,11 @@ struct node *create_list(int data, struct node *list) {
 struct node *insert_end(int data, struct node *list) {
   struct node *node, *ptr;
   ptr = list;
+  node = (struct node *)malloc(sizeof(struct node));
   while (ptr->next != list)
     ptr = ptr->next;
-  node = (struct node *)malloc(sizeof(struct node));
   node->data = data;
-  node->next = ptr->next;
+  node->next = list;
   ptr->next = node;
   return list;
 }
