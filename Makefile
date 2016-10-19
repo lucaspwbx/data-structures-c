@@ -25,6 +25,10 @@ $(BINDIR)/main: $(OBJECTS) $(MAIN)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -o $@ -c $<
 
+testuniq: $(OBJECTS)
+	  $(CC) $(TESTDIR)/$(FILE)_test.c $(OBJECTS) -o $(BINDIR)/$(FILE) $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
+	  $(BINDIR)/./$(FILE)
+
 test: $(OBJECTS)
 	for file in $(TESTS); do \
 	  $(CC) $(TESTDIR)/$$file.c $(OBJECTS) -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
