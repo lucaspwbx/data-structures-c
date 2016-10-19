@@ -31,11 +31,19 @@ struct node *insert_begin(int data, struct node *list) {
   return list;
 }
 
-struct node *insert_before(int search_data, int data, struct node *list) {
+struct node *insert_after(int search_data, int data, struct node *list) {
+  struct node *node, *ptr;
+  ptr = list;
+  node = (struct node *)malloc(sizeof(struct node));
+  while (ptr->next != list && ptr->data != search_data)
+    ptr = ptr->next;
+  node->data = data;
+  node->next = ptr->next;
+  ptr->next = node;
   return list;
 }
 
-struct node *insert_after(int search_data, int data, struct node *list) {
+struct node *insert_before(int search_data, int data, struct node *list) {
   return list;
 }
 
