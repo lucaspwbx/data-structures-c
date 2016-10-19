@@ -19,19 +19,22 @@ INCLUDE_CMOCKA := $(INCLUDE_CMOCKA_HEADER) -l cmocka -L $(CMOCKA_PATH)
 TESTS := $(basename $(notdir $(wildcard $(TESTDIR)/*.c)))
 ######################################################################
 
-$(BINDIR)/main: $(OBJECTS) $(MAIN)
-	$(CC) $(SRCDIR)/main.c $(OBJECTS) -o $(BINDIR)/main
+$(BINDIR)/main: $(OBJECTS)
+	@echo "BUILD DONE";
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -o $@ -c $<
 
+.PHONY: testuniq
 testuniq: $(OBJECTS)
-	  $(CC) $(TESTDIR)/$(FILE)_test.c $(OBJECTS) -o $(BINDIR)/$(FILE) $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
+	  $(CC) $(TESTDIR)/$(FILE)_test.c $(OBJDIR)/$(FILE).o -o $(BINDIR)/$(FILE) $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
 	  $(BINDIR)/./$(FILE)
 
+.PHONY: test
 test: $(OBJECTS)
+	@echo REFATORAR;
 	for file in $(TESTS); do \
-	  $(CC) $(TESTDIR)/$$file.c $(OBJECTS) -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
+	  $(CC) $(TESTDIR)/$$file.c $(OBJDIR)/$$file.o -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
 	  $(BINDIR)/./$$file; \
 	  done
 
