@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include "single_linked_list.h"
+#include<stdio.h>
 
 struct node *create_list(int data, struct node *list) {
   struct node *node;
@@ -56,5 +57,22 @@ struct node *insert_before(int search_data, int data, struct node *list) {
 }
 
 struct node *delete_node(int search_data, struct node *list) {
+  struct node *ptr;
+  ptr = list;
+  if (ptr->data == search_data) {
+    ptr->next->next = ptr->next;
+    list = ptr->next;
+    return list;
+  }
+  while (ptr->next != list && ptr->next->data != search_data) {
+    ptr = ptr->next;
+  }
+  // searched node is the "last" node
+  if (ptr->next->next == list) {
+    ptr->next = list;
+  // searched node is in the middle of the list
+  } else {
+    ptr->next = ptr->next->next;
+  }
   return list;
 }
