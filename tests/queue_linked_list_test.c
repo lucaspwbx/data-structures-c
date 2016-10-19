@@ -38,16 +38,11 @@ static void dequeue_test(void **state) {
   assert_null(list->next);
 }
 
-static void is_empty_test(void **state) {
-  (void) state;
-}
-
 int main(void) {
   const struct CMUnitTest tests[] = {
     cmocka_unit_test(create_queue_test),
     cmocka_unit_test(enqueue_test),
     cmocka_unit_test(dequeue_test),
-    cmocka_unit_test(is_empty_test),
   };
   return cmocka_run_group_tests(tests, NULL, NULL);
 }
