@@ -99,8 +99,8 @@ int main(void) {
     cmocka_unit_test(create_list_test),
     cmocka_unit_test(insert_end_test),
     cmocka_unit_test(insert_begin_test),
-    //cmocka_unit_test(insert_after_test),
-    //cmocka_unit_test(insert_before_test),
+    cmocka_unit_test(insert_after_test),
+    cmocka_unit_test(insert_before_test),
    // cmocka_unit_test(delete_node_test),
   };
   return cmocka_run_group_tests(tests, NULL, NULL);
