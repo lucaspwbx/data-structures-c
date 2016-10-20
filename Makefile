@@ -23,18 +23,18 @@ $(BINDIR)/main: $(OBJECTS)
 	@echo "BUILD DONE";
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) -o $@ -c $<
+	$(CC) -ggdb -o $@ -c $<
 
 .PHONY: testuniq
 testuniq: $(OBJECTS)
-	  $(CC) $(TESTDIR)/$(FILE)_test.c $(OBJDIR)/$(FILE).o -o $(BINDIR)/$(FILE) $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
+	  $(CC) -g3 -Wall -pedantic $(TESTDIR)/$(FILE)_test.c $(OBJDIR)/$(FILE).o -o $(BINDIR)/$(FILE) $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR)
 	  $(BINDIR)/./$(FILE)
 
 .PHONY: test
 test: $(OBJECTS)
 	@echo REFATORAR;
 	for file in $(TESTS); do \
-	  $(CC) $(TESTDIR)/$$file.c $(OBJDIR)/$$file.o -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
+	  $(CC) -g3 -Wall -pedantic $(TESTDIR)/$$file.c $(OBJDIR)/$$file.o -o $(BINDIR)/$$file $(INCLUDE_CMOCKA) -I$(ROOT_DIR)/$(SRCDIR); \
 	  $(BINDIR)/./$$file; \
 	  done
 
