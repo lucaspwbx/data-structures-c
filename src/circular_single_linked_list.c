@@ -1,6 +1,5 @@
 #include<stdlib.h>
-#include "single_linked_list.h"
-#include<stdio.h>
+#include "circular_single_linked_list.h"
 
 struct node *create_list(int data, struct node *list) {
   struct node *node;
