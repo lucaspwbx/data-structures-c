@@ -26,6 +26,13 @@ struct node *insert_end(int data, struct node *list) {
 }
 
 struct node *insert_begin(int data, struct node *list) {
+  struct node *node;
+  node = (struct node *)malloc(sizeof(struct node));
+  node->data = data;
+  node->prev = list->prev;
+  node->next = list;
+  list->prev->next = node;
+  list = node;
   return list;
 }
 
