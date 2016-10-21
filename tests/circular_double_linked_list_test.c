@@ -66,9 +66,8 @@ static void insert_before_test(void **state) {
   list = insert_end(10, list);
   list = insert_before(10, 7, list);
   assert_int_equal(list->data, 5);
+  assert_int_equal(list->prev->data, 10);
   assert_int_equal(list->next->data, 7);
-  assert_int_equal(list->next->next->data, 10);
-  assert_int_equal(list->next->next->next->data, 5);
 }
 
 static void delete_node_test(void **state) {
@@ -117,7 +116,7 @@ int main(void) {
     cmocka_unit_test(insert_end_test),
     cmocka_unit_test(insert_begin_test),
     cmocka_unit_test(insert_after_test),
-    //cmocka_unit_test(insert_before_test),
+    cmocka_unit_test(insert_before_test),
    // cmocka_unit_test(delete_node_test),
     //cmocka_unit_test(delete_middle_node_test),
   //  cmocka_unit_test(delete_end_node_test),

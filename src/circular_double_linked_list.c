@@ -51,6 +51,15 @@ struct node *insert_after(int search_data, int data, struct node *list) {
 }
 
 struct node *insert_before(int search_data, int data, struct node *list) {
+  struct node *node, *ptr;
+  ptr = list;
+  node = (struct node *)malloc(sizeof(struct node));
+  node->data = data;
+  while (ptr->next != list && ptr->data != search_data)
+    ptr = ptr->next;
+  node->prev = ptr->prev; 
+  node->next = ptr;
+  list->next = node;
   return list;
 }
 
