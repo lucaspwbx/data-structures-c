@@ -54,7 +54,6 @@ static void insert_after_test(void **state) {
   assert_int_equal(list->data, 5);
   assert_int_equal(list->prev->data, 10);
   assert_int_equal(list->next->data, 7);
- // assert_int_equal(list->next->next->data, 10);
 }
 
 static void insert_before_test(void **state) {
