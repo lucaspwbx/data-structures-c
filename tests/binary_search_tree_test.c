@@ -72,6 +72,21 @@ static void height_test(void **state) {
   assert_int_equal(_height, 2);
 }
 
+static void level_test(void **state) {
+  (void) state;
+  struct node *tree = NULL;
+  int _level;
+  tree = insert_node(2, tree);
+  tree = insert_node(6, tree);
+  tree = insert_node(1, tree);
+  _level = level(1, tree);
+  assert_int_equal(_level, 2);
+  assert_int_equal(level(2, tree), 1);
+  assert_int_equal(level(6, tree), 2);
+  tree = insert_node(10, tree);
+  assert_int_equal(level(10, tree), 3);
+}
+
 int main(void) {
   const struct CMUnitTest tests[] = {
     cmocka_unit_test(is_empty_test),
@@ -80,6 +95,7 @@ int main(void) {
     cmocka_unit_test(find_max_test),
     cmocka_unit_test(find_test),
     cmocka_unit_test(height_test),
+    cmocka_unit_test(level_test),
   };
   return cmocka_run_group_tests(tests, NULL, NULL);
 }
