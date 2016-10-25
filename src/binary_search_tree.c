@@ -61,19 +61,11 @@ int height(struct node *tree) {
 }
 
 int level(int data, struct node *tree) {
-  struct node *node;
-  int sum;
   if (tree == NULL) return 0;
-  sum = 1;
-  if (data < tree->data) {
-    node = find(data, tree->left);
-    if (node != NULL)
-      return ++sum;
-  }
-  else if (data > tree->data) {
-    node = find(data, tree->right);
-    if (node != NULL)
-      return ++sum;
-  }
-  return sum;
+  if (tree->data == data)
+    return 1;
+  if (data > tree->data)
+    return 1 + level(data, tree->right);
+  else if (data < tree->data)
+    return 1 + level(data, tree->left);
 }

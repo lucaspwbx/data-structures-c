@@ -85,6 +85,8 @@ static void level_test(void **state) {
   assert_int_equal(level(6, tree), 2);
   tree = insert_node(10, tree);
   assert_int_equal(level(10, tree), 3);
+  tree = insert_node(12, tree);
+  assert_int_equal(level(12, tree), 4);
 }
 
 int main(void) {
