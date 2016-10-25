@@ -25,3 +25,32 @@ struct node *insert_node(int data, struct node *tree) {
   }
   return tree;
 }
+
+struct node *find_min(struct node *tree) {
+  if (tree == NULL)
+    return NULL;
+  if (tree->left)
+    return find_min(tree->left);
+  else
+    return tree;
+}
+
+struct node *find_max(struct node *tree) {
+  if (tree == NULL)
+    return NULL;
+  if (tree->right)
+    return find_max(tree->right);
+  else
+    return tree;
+}
+
+struct node *find(int data, struct node *tree) {
+  if (tree == NULL)
+    return NULL;
+  if (data < tree->data)
+    return find(data, tree->left);
+  if (data > tree->data)
+    return find(data, tree->right);
+  else
+    return tree;
+}
