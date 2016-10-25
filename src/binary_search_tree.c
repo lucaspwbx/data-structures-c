@@ -49,8 +49,13 @@ struct node *find(int data, struct node *tree) {
     return NULL;
   if (data < tree->data)
     return find(data, tree->left);
-  if (data > tree->data)
+  else if (data > tree->data)
     return find(data, tree->right);
   else
     return tree;
+}
+
+int height(struct node *tree) {
+  if (tree == NULL) return 0;
+  return 1 + max(height(tree->left), height(tree->right));
 }
